@@ -2,6 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 import BottomNumbers from '../bottom-numbers/BottomNumbers';
 import { TableDataItem } from '../../types';
 import { checkSudokuBoardValid } from '../../utils/utils';
+import FinishedDialog from '../finished-dialog/FinishedDialog';
 
 type Props = {
   table2D_data: TableDataItem[][];
@@ -134,6 +135,7 @@ const Table = ({ table2D_data }: Props) => {
         onClickAdd={(n) => handleBottomNumberClick(n)}
         onClickDelete={handleBottomDeleteClick}
       />
+      {isGameCompleted ? <FinishedDialog open={true} /> : null}
     </div>
   );
 };
