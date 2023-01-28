@@ -1,30 +1,34 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import BottomNumbers from '../bottom-numbers/BottomNumbers';
 import { TableDataItem } from '../../types';
-import { checkSudokuBoardValid } from '../../utils/utils';
+import { checkSudokuBoardValid, setToStorage } from '../../utils/utils';
 import FinishedDialog from '../finished-dialog/FinishedDialog';
 
+import './table.css';
+
 type Props = {
-  table2D_data: TableDataItem[][];
+  boardData: TableDataItem[][];
 };
 
-const Table = ({ table2D_data }: Props) => {
+const Table = ({ boardData }: Props) => {
   const [tableData, setTableData] = useState<TableDataItem[][]>([]);
   const [chosenCell, setChosenCell] = useState<Partial<TableDataItem>>({});
   const [num, setNum] = useState(false);
   const [isGameCompleted, setIsGameCompleted] = useState(false);
-  console.log('isGameCompleted in Table:>> ', isGameCompleted);
 
   useEffect(() => {
-    setTableData(table2D_data);
+    setTableData(boardData);
+    setToStorage('sudoku-table', boardData);
   }, []);
 
   useEffect(() => {
     if (tableData.length == 0) return;
     const { updatedTableData, completed } = checkSudokuBoardValid(tableData);
     if (updatedTableData.length > 0) {
+      setToStorage('sudoku-table', updatedTableData);
       setTableData(updatedTableData);
       setIsGameCompleted(completed);
+      setToStorage('sudoku-table-completed', completed);
     }
   }, [num]);
 
@@ -33,13 +37,10 @@ const Table = ({ table2D_data }: Props) => {
     cell: TableDataItem
   ) => {
     const elem = e.target as HTMLElement;
-    // const cellClicked = cell;
-    // console.log('cellClicked :>> ', cellClicked);
     setActiveCell(cell);
   };
 
   const setActiveCell = (cell: TableDataItem) => {
-    // console.log('cell', cell);
     const updatedTableData = tableData?.map((item) =>
       item.map((innerItem) =>
         innerItem === cell

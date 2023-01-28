@@ -1,13 +1,17 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
-import TitlePage from './components/title-page/TitlePage';
+import TitlePage from './pages/title-page/TitlePage';
+import BoardPage from './pages/board-page/BoardPage';
 
 function App() {
   return (
     <div className='App'>
-      <div className='title-wrapper'>
-        <h2 className='game-title'>Medvedoku</h2>
-      </div>
-      <TitlePage />
+      <Router>
+        <Routes>
+          <Route path='/' element={<TitlePage />} />
+          <Route path='/board' element={<BoardPage />} />
+        </Routes>
+      </Router>
     </div>
   );
 }

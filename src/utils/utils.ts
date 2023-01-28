@@ -116,3 +116,45 @@ export const checkSudokuBoardValid = (tableData: TableDataItem[][]) => {
 
   return { updatedTableData, completed };
 };
+
+export const buildSudokuBoard = (puzzle: string) => {
+  const tableSize = 9;
+  const arr = puzzle.split('');
+
+  const table2Darray = [];
+  while (arr.length) table2Darray.push(arr.splice(0, tableSize));
+  // const matrix = new Array(tableSize).fill(0).map(() => new Array(tableSize));
+  const table2D_data: TableDataItem[][] = table2Darray.map((item, idx) =>
+    item.map((innerItem, innerIdx) => ({
+      id: `row${idx + 1}_td${innerIdx + 1}`,
+      active: false,
+      value: innerItem === '.' ? '' : innerItem,
+      defaultValue: innerItem === '.' ? false : true,
+      duplicate: false,
+    }))
+  );
+
+  return table2D_data;
+};
+
+export const getFromStorage = (key: string) => {
+  const storage = key === 'sudoku-table' ? localStorage : sessionStorage;
+  if (storage.getItem(key)) {
+    if (key === 'sudoku-table' || key === 'sudoku-table-completed') {
+      console.log(key, 'obj');
+      return JSON.parse(storage.getItem(key) || '');
+    } else {
+      return storage.getItem(key);
+    }
+  }
+};
+
+export const setToStorage = (key: string, value: any) => {
+  const storage = key === 'sudoku-table' ? localStorage : sessionStorage;
+  if (key === 'sudoku-table' || key === 'sudoku-table-completed') {
+    console.log(key, 'obj');
+    return storage.setItem(key, JSON.stringify(value));
+  } else {
+    return storage.setItem(key, value);
+  }
+};

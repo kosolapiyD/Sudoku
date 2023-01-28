@@ -1,7 +1,7 @@
 import Backdrop from '@mui/material/Backdrop';
-import Button from '@mui/material/Button';
 import { useState } from 'react';
 
+import { useNavigate } from 'react-router';
 import './dialog.css';
 
 type Props = {
@@ -10,8 +10,11 @@ type Props = {
 
 const FinishedDialog = ({ open }: Props) => {
   const [isOpen, setIsOpen] = useState(open);
+  const navigate = useNavigate();
+
   const handleClose = () => {
     setIsOpen(false);
+    navigate('/');
   };
 
   return (
@@ -25,7 +28,7 @@ const FinishedDialog = ({ open }: Props) => {
     >
       <div className='dialog-wrapper'>
         <h3>You Finished Sudoku!</h3>
-        <div className='new-game-btn'>NEW GAME</div>
+        <div className='new-game-btn'>MAIN MENU</div>
       </div>
     </Backdrop>
   );
