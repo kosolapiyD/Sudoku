@@ -5,6 +5,7 @@ import { checkSudokuBoardValid, setToStorage } from '../../utils/utils';
 import FinishedDialog from '../finished-dialog/FinishedDialog';
 
 import './table.css';
+import { StorageConstants } from '../../constants/storage-constants';
 
 type Props = {
   boardData: TableDataItem[][];
@@ -16,19 +17,22 @@ const Table = ({ boardData }: Props) => {
   const [num, setNum] = useState(false);
   const [isGameCompleted, setIsGameCompleted] = useState(false);
 
+  const { SUDOKU_TABLE, SUDOKU_TABLE_COMPLETED } = StorageConstants;
+
   useEffect(() => {
     setTableData(boardData);
-    setToStorage('sudoku-table', boardData);
+    setToStorage(SUDOKU_TABLE, boardData);
   }, []);
 
   useEffect(() => {
     if (tableData.length == 0) return;
     const { updatedTableData, completed } = checkSudokuBoardValid(tableData);
     if (updatedTableData.length > 0) {
-      setToStorage('sudoku-table', updatedTableData);
+      setToStorage(SUDOKU_TABLE, updatedTableData);
+      completed && localStorage.removeItem(SUDOKU_TABLE);
       setTableData(updatedTableData);
       setIsGameCompleted(completed);
-      setToStorage('sudoku-table-completed', completed);
+      setToStorage(SUDOKU_TABLE_COMPLETED, completed);
     }
   }, [num]);
 

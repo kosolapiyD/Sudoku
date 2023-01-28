@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import './title-page.css';
 import { useNavigate } from 'react-router';
 import { getFromStorage, setToStorage } from '../../utils/utils';
+import { StorageConstants } from '../../constants/storage-constants';
 
 const TitlePage = () => {
   const [startGame, setStartGame] = useState(false);
@@ -10,10 +11,13 @@ const TitlePage = () => {
 
   const navigate = useNavigate();
   const isGameCompleted = getFromStorage('sudoku-table-completed');
+  const isTableInStorage = getFromStorage('sudoku-table');
+
+  const { SUDOKU_CHOICE, SUDOKU_TABLE_COMPLETED } = StorageConstants;
 
   useEffect(() => {
     if (level.length) {
-      setToStorage('sudoku-choice', level);
+      setToStorage(SUDOKU_CHOICE, level);
       navigate('/board');
     }
   }, [level]);
@@ -23,12 +27,12 @@ const TitlePage = () => {
   };
 
   const handleResumeClick = () => {
-    setToStorage('sudoku-choice', 'resume');
+    setToStorage(SUDOKU_CHOICE, 'resume');
     navigate('/board');
   };
 
   const onLevelClick = (e: React.MouseEvent<HTMLElement>) => {
-    setToStorage('sudoku-table-completed', JSON.stringify(false));
+    setToStorage(SUDOKU_TABLE_COMPLETED, false);
     const elem = e.target as HTMLElement;
     const levelChosen = elem.innerText;
 
@@ -56,7 +60,7 @@ const TitlePage = () => {
         <div className='title-page-container'>
           {level.length === 0 ? (
             <>
-              {!isGameCompleted ? (
+              {!isGameCompleted && isTableInStorage !== undefined ? (
                 <div className='btns resume-btn' onClick={handleResumeClick}>
                   RESUME
                 </div>

@@ -6,6 +6,7 @@ import {
   getFromStorage,
   setToStorage,
 } from '../../utils/utils';
+import { StorageConstants } from '../../constants/storage-constants';
 
 const puzzle =
   '72..983.4..94...274...17.5..8.96.5...7..82..65..3.1...86..2.9.13.1.4.76..97.3..8.';
@@ -14,20 +15,19 @@ const puzzle2 =
 
 const BoardPage = () => {
   const [boardData, setBoardData] = useState<TableDataItem[][]>([]);
-  const choice = getFromStorage('sudoku-choice');
-  console.log('choice', choice);
+
+  const { SUDOKU_CHOICE, SUDOKU_TABLE } = StorageConstants;
+  const choice = getFromStorage(SUDOKU_CHOICE);
 
   useEffect(() => {
     if (choice === 'resume') {
-      const tableDataFromLS = getFromStorage('sudoku-table');
+      const tableDataFromLS = getFromStorage(SUDOKU_TABLE);
       setBoardData(tableDataFromLS);
     } else {
-      setToStorage('sudoku-choice', 'resume');
+      setToStorage(SUDOKU_CHOICE, 'resume');
       setBoardData(buildSudokuBoard(puzzle2));
     }
   }, []);
-
-  // console.log('boardData', boardData);
 
   return <div>{boardData.length > 0 && <Table boardData={boardData} />}</div>;
 };

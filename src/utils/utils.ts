@@ -1,3 +1,4 @@
+import { StorageConstants } from '../constants/storage-constants';
 import { TableDataItem } from '../types';
 
 export const checkSudokuBoardValid = (tableData: TableDataItem[][]) => {
@@ -137,10 +138,13 @@ export const buildSudokuBoard = (puzzle: string) => {
   return table2D_data;
 };
 
+const { SUDOKU_TABLE, SUDOKU_TABLE_COMPLETED } = StorageConstants;
+
 export const getFromStorage = (key: string) => {
-  const storage = key === 'sudoku-table' ? localStorage : sessionStorage;
+  const storage = key === SUDOKU_TABLE ? localStorage : sessionStorage;
+  console.log('key :>> ', key);
   if (storage.getItem(key)) {
-    if (key === 'sudoku-table' || key === 'sudoku-table-completed') {
+    if (key === SUDOKU_TABLE || key === SUDOKU_TABLE_COMPLETED) {
       console.log(key, 'obj');
       return JSON.parse(storage.getItem(key) || '');
     } else {
@@ -150,9 +154,8 @@ export const getFromStorage = (key: string) => {
 };
 
 export const setToStorage = (key: string, value: any) => {
-  const storage = key === 'sudoku-table' ? localStorage : sessionStorage;
-  if (key === 'sudoku-table' || key === 'sudoku-table-completed') {
-    console.log(key, 'obj');
+  const storage = key === SUDOKU_TABLE ? localStorage : sessionStorage;
+  if (key === SUDOKU_TABLE || key === SUDOKU_TABLE_COMPLETED) {
     return storage.setItem(key, JSON.stringify(value));
   } else {
     return storage.setItem(key, value);
