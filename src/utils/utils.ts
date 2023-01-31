@@ -142,10 +142,8 @@ const { SUDOKU_TABLE, SUDOKU_TABLE_COMPLETED } = StorageConstants;
 
 export const getFromStorage = (key: string) => {
   const storage = key === SUDOKU_TABLE ? localStorage : sessionStorage;
-  console.log('key :>> ', key);
   if (storage.getItem(key)) {
     if (key === SUDOKU_TABLE || key === SUDOKU_TABLE_COMPLETED) {
-      console.log(key, 'obj');
       return JSON.parse(storage.getItem(key) || '');
     } else {
       return storage.getItem(key);

@@ -1,39 +1,43 @@
 .dialog-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #282c34;
-  border: 1px solid #fff;
-  padding: 20px 60px;
-  margin-top: 25px;
-  margin-bottom: 15px;
-  border-radius: 4px;
-  /* width: 200px; */
-  /* box-shadow: 0px 2px 5px 0px rgba(176, 235, 235, 0.7); */
+  display          : flex;
+  flex-direction   : column;
+  align-items      : center;
+  background-color : #282c34;
+  border           : 1px solid #fff;
+  padding          : 20px 60px;
+  margin-top       : 25px;
+  margin-bottom    : 15px;
+  border-radius    : 4px;
   -webkit-animation: fadein 1s;
   /* Safari, Chrome and Opera > 12.1 */
-  -moz-animation: fadein 1s;
+  -moz-animation   : fadein 1s;
   /* Firefox < 16 */
-  -ms-animation: fadein 1s;
+  -ms-animation    : fadein 1s;
   /* Internet Explorer */
-  -o-animation: fadein 1s;
+  -o-animation     : fadein 1s;
   /* Opera < 12.1 */
-  animation: fadein 1s;
+  animation        : fadein 1s;
 }
 
 .dialog-wrapper .new-game-btn {
-  border: 1px solid #ccc;
-  padding: 10px 20px;
-  margin-top: 25px;
+  border       : 1px solid #ccc;
+  padding      : 10px 20px;
+  margin-top   : 25px;
   margin-bottom: 15px;
   border-radius: 4px;
-  width: 200px;
-  box-shadow: 0px 2px 6px 1px #1cff14b3;
+  width        : 200px;
+  box-shadow   : 0px 2px 6px 1px #1cff14b3;
 }
 
 .dialog-wrapper .new-game-btn:hover {
-  cursor: pointer;
+  cursor    : pointer;
   box-shadow: 0px 2px 7px 2px #1cff14b3;
+}
+
+@media only screen and (max-width: 420px) {
+  .dialog-wrapper {
+    width: 180px;
+  }
 }
 
 @keyframes fadein {

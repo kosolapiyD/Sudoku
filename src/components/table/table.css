@@ -49,6 +49,10 @@
     background-color: #434956;
 }
 
+.table-wrapper .cell.related-cells {
+    border-color: #11dfb1;
+}
+
 .table-wrapper .cell.default-cell {
     /* color: #0aa75d; */
     color: #00ffffb3;

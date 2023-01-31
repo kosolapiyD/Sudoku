@@ -45,6 +45,7 @@ const Table = ({ boardData }: Props) => {
   };
 
   const setActiveCell = (cell: TableDataItem) => {
+    console.log('cell :>> ', cell.id);
     const updatedTableData = tableData?.map((item) =>
       item.map((innerItem) =>
         innerItem === cell
