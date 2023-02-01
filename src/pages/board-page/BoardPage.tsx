@@ -25,7 +25,7 @@ const BoardPage = () => {
       setBoardData(tableDataFromLS);
     } else {
       setToStorage(SUDOKU_CHOICE, 'resume');
-      setBoardData(buildSudokuBoard(puzzle2));
+      setBoardData(buildSudokuBoard(puzzle));
     }
   }, []);
 

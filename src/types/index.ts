@@ -4,4 +4,5 @@ export type TableDataItem = {
   value: string;
   defaultValue: boolean;
   duplicate: boolean;
+  relatedToActive: boolean;
 };

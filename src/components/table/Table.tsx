@@ -41,16 +41,29 @@ const Table = ({ boardData }: Props) => {
     cell: TableDataItem
   ) => {
     const elem = e.target as HTMLElement;
-    setActiveCell(cell);
+    setAllRelatedAndActiveCells(cell);
   };
 
-  const setActiveCell = (cell: TableDataItem) => {
+  const setAllRelatedAndActiveCells = (cell: TableDataItem) => {
+    const activeRowNumber = cell.id.split('_')[0];
+    const activeCellNumber = cell.id.split('_')[1].slice(-1);
     const updatedTableData = tableData?.map((item) =>
-      item.map((innerItem) =>
-        innerItem === cell
-          ? { ...innerItem, active: true }
-          : { ...innerItem, active: false }
-      )
+      item.map((innerItem) => {
+        const innerItemCellNumber = innerItem.id.split('_')[1].slice(-1);
+
+        return innerItemCellNumber === activeCellNumber ||
+          innerItem.id.includes(activeRowNumber)
+          ? {
+              ...innerItem,
+              relatedToActive: true,
+              active: innerItem === cell ? true : false,
+            }
+          : {
+              ...innerItem,
+              relatedToActive: false,
+              active: innerItem === cell ? true : false,
+            };
+      })
     );
     setChosenCell(cell);
     setTableData(updatedTableData);
@@ -101,14 +114,23 @@ const Table = ({ boardData }: Props) => {
           <div className='row' id={`row-${r_idx + 1}`}>
             {r.map((cell, idx) => {
               // cells rendering
-              const { id, value, active, defaultValue, duplicate } = cell;
+              const {
+                id,
+                value,
+                active,
+                defaultValue,
+                duplicate,
+                relatedToActive,
+              } = cell;
               return (
                 <Fragment key={`c-${idx}`}>
                   <div
                     id={id}
                     className={`cell ${active ? 'active-cell' : ''} ${
                       defaultValue ? 'default-cell' : ''
-                    } ${duplicate ? 'duplicate-cell' : ''}`}
+                    } ${duplicate ? 'duplicate-cell' : ''} ${
+                      relatedToActive ? 'related-to-active-cell' : ''
+                    }`}
                     onClick={(e) => {
                       handleCellClick(e, cell);
                     }}

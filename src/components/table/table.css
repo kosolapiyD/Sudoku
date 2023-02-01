@@ -45,13 +45,25 @@
     background-color: #434956;
 }
 
-.table-wrapper .cell.active-cell {
+
+
+.table-wrapper .cell.default-cell {
+    color: #00ffffb3;
+}
+
+
+
+.table-wrapper .cell.related-to-active-cell {
+    border          : 1px solid #36d2ee;
+    background-color: #363941;
+}
+
+.table-wrapper .cell.related-to-active-cell:hover {
     background-color: #434956;
 }
 
-.table-wrapper .cell.default-cell {
-    /* color: #0aa75d; */
-    color: #00ffffb3;
+.table-wrapper .cell.active-cell {
+    background-color: #434956;
 }
 
 .table-wrapper .cell.duplicate-cell {
@@ -127,7 +139,6 @@
     cursor          : default;
     color           : #2d2d2dc9;
 }
-
 
 /** borders **/
 .vertical-border {
