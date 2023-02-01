@@ -47,6 +47,10 @@
 
 
 
+.table-wrapper .cell.related-cells {
+    border-color: #11dfb1;
+}
+
 .table-wrapper .cell.default-cell {
     color: #00ffffb3;
 }
