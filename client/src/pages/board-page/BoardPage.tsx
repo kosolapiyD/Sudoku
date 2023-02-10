@@ -19,25 +19,14 @@ const BoardPage = () => {
   const { SUDOKU_CHOICE, SUDOKU_TABLE } = StorageConstants;
   const choice = getFromStorage(SUDOKU_CHOICE);
 
-  const fetchSudokuFromRapidApi = (choice: string) => {
-    const randomSeed = Math.floor(Math.random() * 9999);
-    const apiKey = process.env.REACT_APP_RAPID_API_KEY as string;
+  const fetchSudokuFromApi = async (choice: string) => {
+    console.log('fetchFromApi client :>> ');
+    const resp = await fetch(`http://localhost:5000/${choice}`).then(
+      (response) => response.json()
+    );
 
-    const options = {
-      method: 'GET',
-      headers: {
-        'X-RapidAPI-Key': apiKey,
-        'X-RapidAPI-Host': 'sudoku-generator1.p.rapidapi.com',
-      },
-    };
-
-    fetch(
-      `https://sudoku-generator1.p.rapidapi.com/sudoku/generate?seed=${randomSeed}&difficulty=${choice}`,
-      options
-    )
-      .then((response) => response.json())
-      .then((response) => console.log('rapid api resp => ', response))
-      .catch((err) => console.error(err));
+    const { puzzle } = resp.response;
+    console.log('sudokuPuzzle :>> ', puzzle);
   };
 
   useEffect(() => {
@@ -47,7 +36,7 @@ const BoardPage = () => {
     } else {
       setToStorage(SUDOKU_CHOICE, 'resume');
       setBoardData(buildSudokuBoard(puzzle));
-      fetchSudokuFromRapidApi(choice);
+      fetchSudokuFromApi(choice);
     }
   }, []);
 
