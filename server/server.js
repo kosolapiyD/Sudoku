@@ -18,7 +18,9 @@ app.use(express.json());
 // });
 
 app.get('/', async (req, res) => {
-  const { choice } = req.params;
+  const { difficulty } = req.query;
+
+  console.log('req.params ==================:>> ', difficulty);
   try {
     const randomSeed = Math.floor(Math.random() * 9999);
     const apiKey = process.env.SUDOKU_RAPID_API_KEY;
@@ -26,7 +28,7 @@ app.get('/', async (req, res) => {
     const options = {
       method: 'GET',
       url: 'https://sudoku-generator1.p.rapidapi.com/sudoku/generate',
-      params: { seed: randomSeed, difficulty: 'hard' },
+      params: { seed: randomSeed, difficulty: difficulty },
       headers: {
         'X-RapidAPI-Key': apiKey,
         'X-RapidAPI-Host': 'sudoku-generator1.p.rapidapi.com',
@@ -37,7 +39,7 @@ app.get('/', async (req, res) => {
       .request(options)
       .then((response) => response.data)
       .catch((error) => {
-        console.error(error);
+        console.error('axios server error', error);
       });
 
     // const options2 = {
