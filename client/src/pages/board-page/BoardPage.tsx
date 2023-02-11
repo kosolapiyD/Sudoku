@@ -24,7 +24,7 @@ const BoardPage = () => {
   const choice = getFromStorage(SUDOKU_CHOICE);
 
   const fetchSudokuFromApi = async (choice: string) => {
-    const resp = await fetch(`http://localhost:5000/${choice}`)
+    const resp = await fetch(`https://sudoku-863l.onrender.com${choice}`)
       .then((response) => response.json())
       .catch((error) => {
         setError({ isErr: true, errMsg: error.message });
