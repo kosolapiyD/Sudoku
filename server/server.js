@@ -5,6 +5,8 @@ import cors from 'cors';
 dotenv.config();
 
 const app = express();
+const port = process.env.PORT || 5000;
+
 app.use(cors());
 app.use(express.json());
 
@@ -35,6 +37,6 @@ app.get('/:choice', async (req, res) => {
   }
 });
 
-app.listen(5000, () =>
-  console.log('Sudoku server started on http://localhost:5000')
+app.listen(port, () =>
+  console.log(`Sudoku server started on http://localhost:${port}`)
 );
