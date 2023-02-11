@@ -24,7 +24,9 @@ const BoardPage = () => {
   const choice = getFromStorage(SUDOKU_CHOICE);
 
   const fetchSudokuFromApi = async (choice: string) => {
-    const resp = await fetch(`http://localhost:5000/?difficulty=${choice}`)
+    const resp = await fetch(
+      `https://sudoku-production.up.railway.app/?difficulty=${choice}`
+    )
       .then((response) => response.json())
       .catch((error) => {
         setError({ isErr: true, errMsg: error.message });
