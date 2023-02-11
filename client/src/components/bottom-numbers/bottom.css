@@ -1,0 +1,65 @@
+.bottom-container {
+    display          : flex;
+    justify-content  : center;
+    -webkit-animation: fadein 1s;
+    /* Safari, Chrome and Opera > 12.1 */
+    -moz-animation   : fadein 1s;
+    /* Firefox < 16 */
+    -ms-animation    : fadein 1s;
+    /* Internet Explorer */
+    -o-animation     : fadein 1s;
+    /* Opera < 12.1 */
+    animation        : fadein 1s;
+}
+
+.bottom-box {
+    width: 405px;
+}
+
+.numbers-wrapper {
+    display        : flex;
+    justify-content: space-between;
+    margin-top     : 20px;
+}
+
+.delete-number-wrapper {
+    display        : flex;
+    justify-content: flex-end;
+    margin-top     : 5px;
+}
+
+.delete-num-box svg {
+    font-size    : 2.5rem;
+    padding-right: 2px;
+}
+
+.delete-num-box svg:hover {
+    cursor: pointer;
+}
+
+.numbers-wrapper .number-box {
+    display         : flex;
+    align-items     : center;
+    justify-content : center;
+    border          : 2px solid white;
+    width           : 30px;
+    height          : 30px;
+    padding         : 1px;
+    margin          : 2px;
+    border-radius   : 5px;
+    background-color: rgba(204, 204, 204, 0.822);
+    color           : black;
+    font-weight     : 600;
+}
+
+.numbers-wrapper .number-box:hover {
+    cursor          : pointer;
+    background-color: rgba(168, 168, 168, 0.822);
+}
+
+.numbers-wrapper.disabled .number-box {
+    background-color: #cccccc66;
+    border          : 2px solid #cccccc66;
+    cursor          : default;
+    color           : #2d2d2dc9;
+}

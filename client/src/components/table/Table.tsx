@@ -1,11 +1,13 @@
-import React, { Fragment, useEffect, useState } from 'react';
-import BottomNumbers from '../bottom-numbers/BottomNumbers';
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import { Fragment, useEffect, useState } from 'react';
 import { TableDataItem } from '../../types';
 import { checkSudokuBoardValid, setToStorage } from '../../utils/utils';
+import BottomNumbers from '../bottom-numbers/BottomNumbers';
 import FinishedDialog from '../finished-dialog/FinishedDialog';
 
-import './table.css';
+import { useNavigate } from 'react-router';
 import { StorageConstants } from '../../constants/storage-constants';
+import './table.css';
 
 type Props = {
   boardData: TableDataItem[][];
@@ -16,6 +18,8 @@ const Table = ({ boardData }: Props) => {
   const [chosenCell, setChosenCell] = useState<Partial<TableDataItem>>({});
   const [num, setNum] = useState(false);
   const [isGameCompleted, setIsGameCompleted] = useState(false);
+
+  const navigate = useNavigate();
 
   const { SUDOKU_TABLE, SUDOKU_TABLE_COMPLETED } = StorageConstants;
 
@@ -36,11 +40,7 @@ const Table = ({ boardData }: Props) => {
     }
   }, [num]);
 
-  const handleCellClick = (
-    e: React.MouseEvent<HTMLElement>,
-    cell: TableDataItem
-  ) => {
-    const elem = e.target as HTMLElement;
+  const handleCellClick = (cell: TableDataItem) => {
     setAllRelatedAndActiveCells(cell);
   };
 
@@ -70,7 +70,6 @@ const Table = ({ boardData }: Props) => {
   };
 
   const handleBottomNumberClick = (n: string) => {
-    // console.log('bottom number click :>> ', n);
     const updatedTableData = tableData?.map((item) =>
       item.map((innerItem) =>
         innerItem.active === true && innerItem.defaultValue === false
@@ -131,8 +130,8 @@ const Table = ({ boardData }: Props) => {
                     } ${duplicate ? 'duplicate-cell' : ''} ${
                       relatedToActive ? 'related-to-active-cell' : ''
                     }`}
-                    onClick={(e) => {
-                      handleCellClick(e, cell);
+                    onClick={() => {
+                      handleCellClick(cell);
                     }}
                   >
                     {value}
@@ -150,6 +149,15 @@ const Table = ({ boardData }: Props) => {
 
   return (
     <div className='table-container'>
+      <div className='header-wrapper'>
+        <div className='header-box'>
+          <HomeOutlinedIcon
+            onClick={() => {
+              navigate('/');
+            }}
+          />
+        </div>
+      </div>
       <div className='table-wrapper'>
         <div id='table'>
           <div>

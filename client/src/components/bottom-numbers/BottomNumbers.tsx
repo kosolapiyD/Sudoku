@@ -1,6 +1,7 @@
-import React from 'react';
 import BackspaceOutlinedIcon from '@mui/icons-material/BackspaceOutlined';
 import { TableDataItem } from '../../types';
+
+import './bottom.css';
 
 type Props = {
   chosenCell: Partial<TableDataItem>;
