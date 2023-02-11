@@ -10,6 +10,12 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+app.get('/', async (req, res) => {
+  res.status(200).send({
+    message: 'Hello from Sudoku!',
+  });
+});
+
 app.get('/:choice', async (req, res) => {
   const { choice } = req.params;
   try {
