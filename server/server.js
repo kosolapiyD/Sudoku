@@ -11,13 +11,13 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-app.get('/', async (req, res) => {
-  res.status(200).send({
-    message: 'Hello from Sudoku!',
-  });
-});
+// app.get('/', async (req, res) => {
+//   res.status(200).send({
+//     message: 'Hello from Sudoku!',
+//   });
+// });
 
-app.get('/:choice', async (req, res) => {
+app.get('/', async (req, res) => {
   const { choice } = req.params;
   try {
     const randomSeed = Math.floor(Math.random() * 9999);
@@ -26,7 +26,7 @@ app.get('/:choice', async (req, res) => {
     const options = {
       method: 'GET',
       url: 'https://sudoku-generator1.p.rapidapi.com/sudoku/generate',
-      params: { seed: randomSeed, difficulty: choice },
+      params: { seed: randomSeed, difficulty: 'hard' },
       headers: {
         'X-RapidAPI-Key': apiKey,
         'X-RapidAPI-Host': 'sudoku-generator1.p.rapidapi.com',
